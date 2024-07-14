@@ -5,8 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.awp.qq.bot.client.QQBotConfiguration;
 import org.awp.qq.bot.entity.Channel;
-import org.awp.qq.bot.entity.Environment;
-import org.awp.qq.bot.entity.Guild;
 import org.awp.qq.bot.util.GsonUtil;
 
 import java.util.ArrayList;
