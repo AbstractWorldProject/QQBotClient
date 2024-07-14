@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 频道接口
+ * 频道信息接口
  *
  * @author MovCloud
  *
@@ -20,13 +20,14 @@ import java.util.List;
  * @since  1.0
  */
 public final class GuildAPI {
+    /**
+     * 获取机器人加入的频道列表
+     */
     public static List<Guild> getGuildList(QQBotConfiguration configuration){
-        String response = RequestAPI.botHttpGet(configuration,
-                String.format("/users/@me/guilds"));
+        String response = RequestAPI.botHttpGet(configuration, "/users/@me/guilds");
         if (response == null){
             return null;
         }
-//        System.out.println("DEMO: " + response);
         List<Guild> guildList = new ArrayList<>();
         JsonElement json = JsonParser.parseString(response);
         if (json != null && json.isJsonArray()){
@@ -42,7 +43,7 @@ public final class GuildAPI {
     }
 
     /**
-     * 获取指定频道信息
+     * 按频道ID获取频道信息
      */
     public static Guild getGuildInfo(QQBotConfiguration configuration, String guildId){
         String response = RequestAPI.botHttpGet(configuration, String.format("/guilds/%s", guildId));

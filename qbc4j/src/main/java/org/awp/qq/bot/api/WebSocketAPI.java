@@ -9,7 +9,10 @@ import java.net.http.WebSocket;
 import java.time.Duration;
 
 /**
- * WebSocket连接接口
+ * WebSocket连接接口<p/>
+ * 已弃用，请使用
+ * {@link org.awp.qq.bot.client.QQBotClient}对象
+ * 创建长连接
  *
  * @author MovCloud
  *
@@ -17,8 +20,13 @@ import java.time.Duration;
  *
  * @since  1.0
  */
+@Deprecated(since = "1.0.0")
 public final class WebSocketAPI {
 
+    /**
+     * 启动QQ机器人长连接
+     * 一天后关闭，此接口为旧有调试接口
+     */
     public static void start(QQBotConfiguration configuration, WebSocket.Listener listener){
         String url = getGatewayUrl(configuration);
         if (url == null || url.isBlank()){
@@ -36,6 +44,9 @@ public final class WebSocketAPI {
         }
     }
 
+    /**
+     * 获取指定环境的开放平台门户URL
+     */
     public static String getGatewayUrl(QQBotConfiguration configuration){
         String response = RequestAPI.botHttpGet(configuration, "/gateway");
         if (response == null){

@@ -1,7 +1,6 @@
 package org.awp.qq.bot.api;
 
 import org.awp.qq.bot.client.QQBotConfiguration;
-import org.awp.qq.bot.entity.Environment;
 import org.awp.qq.bot.entity.message.Message;
 import org.awp.qq.bot.entity.message.reply.Reply;
 import org.awp.qq.bot.util.GsonUtil;
@@ -16,24 +15,42 @@ import org.awp.qq.bot.util.GsonUtil;
  * @since  1.0
  */
 public final class MessageAPI {
+    /**
+     * 根据消息ID获取指定子频道内的消息
+     * @param channelId     子频道ID
+     * @param messageId     消息ID
+     */
     public static Message getMessage(QQBotConfiguration configuration, String channelId, String messageId){
         String response = RequestAPI.botHttpGet(configuration,
                 String.format("/channels/%s/messages/%s", channelId, messageId));
         if (response == null){
             return null;
         }
-//        System.out.println("DEMO: " + response);
         return GsonUtil.GSON.fromJson(response, Message.class);
     }
 
+    /**
+     * 向指定的子频道发送回复
+     * @param channelId     子频道ID
+     * @param reply         回复消息对象
+     */
     public static String sendToChannel(QQBotConfiguration configuration, String channelId, Reply reply){
         return RequestAPI.botHttpPost(configuration, String.format("/channels/%s/messages", channelId), reply.getAsRequestBody());
     }
 
+    /**
+     * 向指定的私聊发送回复
+     * @param guildId       频道ID
+     * @param reply         回复消息对象
+     */
     public static String sendToDMS(QQBotConfiguration configuration, String guildId, Reply reply){
         return RequestAPI.botHttpPost(configuration, String.format("/dms/%s/messages", guildId), reply.getAsRequestBody());
     }
 
+    /**
+     * 拼接@文本
+     * @param userId    at的用户ID
+     */
     public static String mention(String userId){
         if (userId == null || userId.isBlank()){
             return "";

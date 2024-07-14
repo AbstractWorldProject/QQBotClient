@@ -22,13 +22,15 @@ import java.util.List;
  * @since  1.0
  */
 public final class ChannelAPI {
+    /**
+     * 按频道ID获取子频道列表
+     */
     public static List<Channel> getChannelList(QQBotConfiguration configuration, String guildId){
         String response = RequestAPI.botHttpGet(configuration,
                 String.format("/guilds/%s/channels", guildId));
         if (response == null){
             return null;
         }
-//        System.out.println("DEMO: " + response);
         List<Channel> channelList = new ArrayList<>();
         JsonElement json = JsonParser.parseString(response);
         if (json != null && json.isJsonArray()){

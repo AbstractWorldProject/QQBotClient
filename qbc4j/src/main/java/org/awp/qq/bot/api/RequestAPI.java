@@ -19,6 +19,9 @@ import java.time.Duration;
  */
 public final class RequestAPI {
 
+    /**
+     * 超时时长（秒）
+     */
     private static final long TIMEOUT = 10;
 
     public static HttpClient newHttpClient(){
@@ -28,6 +31,9 @@ public final class RequestAPI {
                 .build();
     }
 
+    /**
+     * 发送机器人接口GET请求
+     */
     public static String botHttpGet(QQBotConfiguration configuration, String api){
         try(HttpClient httpClient = newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
@@ -44,6 +50,9 @@ public final class RequestAPI {
         return null;
     }
 
+    /**
+     * 发送机器人接口POST请求
+     */
     public static String botHttpPost(QQBotConfiguration configuration, String api, String body){
         try(HttpClient httpClient = newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
@@ -60,14 +69,23 @@ public final class RequestAPI {
         return null;
     }
 
+    /**
+     * 拼接机器人接口权限验证信息
+     */
     public static String formatBotAuthorization(QQBotConfiguration configuration){
         return formatBotAuthorization(configuration.getAppId(), configuration.getToken());
     }
 
+    /**
+     * 拼接机器人接口权限验证信息
+     */
     public static String formatBotAuthorization(String appId, String token){
         return "Bot " + appId + "." + token;
     }
 
+    /**
+     * 拼接OAuth权限验证信息
+     */
     public static String formatOAuthAuthorization(String token){
         return "Bearer " + token;
     }

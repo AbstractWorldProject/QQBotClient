@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 成员接口
+ * 成员信息接口
  *
  * @author MovCloud
  *
@@ -20,6 +20,11 @@ import java.util.List;
  * @since  1.0
  */
 public final class MemberAPI {
+    /**
+     * 获取成员信息
+     * @param guildId   频道ID
+     * @param userId    用户ID
+     */
     public static Member getMemberInfo(QQBotConfiguration configuration, String guildId, String userId){
         String response = RequestAPI.botHttpGet(configuration, String.format("/guilds/%s/members/%s",
                 guildId, userId));
@@ -34,6 +39,9 @@ public final class MemberAPI {
         throw new UnsupportedOperationException("测试频道人数不足400，暂不实现该功能");
     }
 
+    /**
+     * 获取指定频道的第一页成员列表
+     */
     public static List<Member> getGuildMemberPage(QQBotConfiguration configuration, String guildId){
         return getGuildMemberPage(configuration, guildId, null, null);
     }
@@ -52,7 +60,6 @@ public final class MemberAPI {
         if (response == null){
             return null;
         }
-//        System.out.println("DEMO: " + response);
         List<Member> memberList = new ArrayList<>();
         JsonElement json = JsonParser.parseString(response);
         if (json != null && json.isJsonArray()){

@@ -23,12 +23,12 @@ public class Permission {
     @Expose
     private boolean admin;
     /**
-     * 可发言子频道
+     * 可在子频道内发言
      */
     @Expose
     private boolean chat;
     /**
-     * 可直播子频道
+     * 可在子频道内直播
      */
     @Expose
     private boolean live;
