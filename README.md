@@ -195,7 +195,7 @@ public static class TestPayloadConsumer extends PayloadConsumer {
 }
 ```
 
-4.更底层的实现方法
+#### 4.更底层的实现方法
 
     如果使用封装的负载不能够满足你的需求，比如需要直接操作WebSocket对象
     那么也可以通过实现负载分发器PayloadDistributor来进行更进一步的定制化操作
