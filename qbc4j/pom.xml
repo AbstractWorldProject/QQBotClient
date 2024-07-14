@@ -9,6 +9,14 @@
     <description>QQ Bot Client for Java</description>
     <version>1.0.0</version>
 
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <comments>LGPL开源协议</comments>
+        </license>
+    </licenses>
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
