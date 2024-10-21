@@ -25,7 +25,8 @@ public class Message {
     @SerializedName("id")
     private String messageId;
     /**
-     * 用于私信场景下识别真实的来源频道id
+     * 来源频道ID
+     * 用于频道私信场景下识别真实的来源频道id
      */
     @Expose
     @SerializedName("src_guild_id")
@@ -42,6 +43,19 @@ public class Message {
     @Expose
     @SerializedName("channel_id")
     private String channelId;
+    /**
+     * 群聊ID
+     */
+    @Expose
+    @SerializedName("group_id")
+    private String groupId;
+    /**
+     * 群聊开放平台ID
+     */
+    @Expose
+    @SerializedName("group_openid")
+    private String groupOpenid;
+
     /**
      * 消息内容
      */
@@ -147,6 +161,22 @@ public class Message {
 
     public void setChannelId(String channelId) {
         this.channelId = channelId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupOpenid() {
+        return groupOpenid;
+    }
+
+    public void setGroupOpenid(String groupOpenid) {
+        this.groupOpenid = groupOpenid;
     }
 
     public String getContent() {

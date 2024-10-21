@@ -5,6 +5,7 @@ import org.awp.qq.bot.api.RequestAPI;
 import org.awp.qq.bot.client.distributor.PayloadDistributor;
 import org.awp.qq.bot.client.consumer.PayloadConsumer;
 import org.awp.qq.bot.entity.Payload;
+import org.awp.qq.bot.entity.message.reply.PublicDomainReply;
 import org.awp.qq.bot.entity.message.reply.Reply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,14 +112,14 @@ public class QQBotClient {
      * TODO - 主动转被动？尝试存储未过期且有余量的消息，优先将主动消息变为回复消息
      * replyMessage
      */
-    public void sendMessage(String channelId, String content){
+    public void sendChannelMessage(String channelId, String content){
         Reply reply = new Reply();
         reply.setContent(content);
         String response = MessageAPI.sendToChannel(getConfiguration(), channelId, reply);
-        log.info("发送消息返回: " + response);
+        log.info("发送频道消息返回值: " + response);
     }
 
-    public void replyMessage(String channelId, String messageId, String content){
+    public void replyChannelMessage(String channelId, String messageId, String content){
         if (messageId == null || messageId.isBlank()){
             throw new RuntimeException("缺少回复的信息ID");
         }
@@ -126,18 +127,56 @@ public class QQBotClient {
         reply.setMsgId(messageId);
         reply.setContent(content);
         String response = MessageAPI.sendToChannel(getConfiguration(), channelId, reply);
-        log.info("回复消息返回: " + response);
+        log.info("回复频道消息返回值: " + response);
     }
 
-    public void replyMessageWithReference(String channelId, String messageId, String content){
+    public void replyChannelMessageWithReference(String channelId, String messageId, String content){
         if (messageId == null || messageId.isBlank()){
             throw new RuntimeException("缺少回复的信息ID");
         }
-        Reply reply = new Reply();
+        Reply reply = new PublicDomainReply();
         reply.setMsgId(messageId);
         reply.setContent(content);
         reply.setMessageReference(messageId);
         String response = MessageAPI.sendToChannel(getConfiguration(), channelId, reply);
+        log.info("回复消息返回: " + response);
+    }
+
+    /**
+     * 主动发送消息有条数限制，优先使用回复方法
+     * TODO - 主动转被动？尝试存储未过期且有余量的消息，优先将主动消息变为回复消息
+     * replyMessage
+     */
+    public void sendGroupMessage(String groupId, String content){
+        PublicDomainReply reply = new PublicDomainReply();
+        reply.setType(PublicDomainReply.Type.CONTENT);
+        reply.setContent(content);
+        String response = MessageAPI.sendToGroup(getConfiguration(), groupId, reply);
+        log.info("发送群聊消息返回值: " + response);
+    }
+
+    public void replyGroupMessage(String groupId, String messageId, String content){
+        if (messageId == null || messageId.isBlank()){
+            throw new RuntimeException("缺少回复的信息ID");
+        }
+        PublicDomainReply reply = new PublicDomainReply();
+        reply.setType(PublicDomainReply.Type.CONTENT);
+        reply.setMsgId(messageId);
+        reply.setContent(content);
+        String response = MessageAPI.sendToGroup(getConfiguration(), groupId, reply);
+        log.info("回复群聊消息返回值: " + response);
+    }
+
+    public void replyGroupMessageWithReference(String groupId, String messageId, String content){
+        if (messageId == null || messageId.isBlank()){
+            throw new RuntimeException("缺少回复的信息ID");
+        }
+        PublicDomainReply reply = new PublicDomainReply();
+        reply.setType(PublicDomainReply.Type.CONTENT);
+        reply.setMsgId(messageId);
+        reply.setContent(content);
+        reply.setMessageReference(messageId);
+        String response = MessageAPI.sendToGroup(getConfiguration(), groupId, reply);
         log.info("回复消息返回: " + response);
     }
 

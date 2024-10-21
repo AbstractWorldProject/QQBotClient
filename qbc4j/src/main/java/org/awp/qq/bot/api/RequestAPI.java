@@ -59,7 +59,7 @@ public final class RequestAPI {
                     .uri(URI.create(configuration.getEnvironment().formatUrl(api)))
                     .header("Authorization", formatBotAuthorization(configuration))
                     .header("content-type", "application/json")
-                    .header("User-Agent", "BotQQForJava/v1")
+                    .header("User-Agent", "qbc4j/v1.0.0")
                     .timeout(Duration.ofSeconds(TIMEOUT))
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();

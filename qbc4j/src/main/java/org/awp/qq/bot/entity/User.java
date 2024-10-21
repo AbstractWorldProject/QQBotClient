@@ -38,6 +38,12 @@ public class User {
     @SerializedName("bot")
     private boolean bot;
     /**
+     * 成员OpenId
+     */
+    @Expose
+    @SerializedName("member_openid")
+    private String memberOpenid;
+    /**
      * 关联OpenId
      */
     @Expose
@@ -80,6 +86,14 @@ public class User {
 
     public void setBot(boolean bot) {
         this.bot = bot;
+    }
+
+    public String getMemberOpenid() {
+        return memberOpenid;
+    }
+
+    public void setMemberOpenid(String memberOpenid) {
+        this.memberOpenid = memberOpenid;
     }
 
     public String getUnionOpenid() {

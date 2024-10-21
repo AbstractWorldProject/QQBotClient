@@ -2,6 +2,10 @@ package org.awp.qq.bot.entity.message.reply;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 /**
  * 公域回复
  * 私聊与群聊回复
@@ -19,7 +23,7 @@ public final class PublicDomainReply extends Reply {
      */
     @Expose
     @SerializedName("msg_type")
-    private Integer msgType;
+    private Integer msgTypeCode;
 
     /**
      * 消息序号
@@ -27,25 +31,33 @@ public final class PublicDomainReply extends Reply {
      */
     @Expose
     @SerializedName("msg_seq")
-    private Integer msgSeq;
+    private Integer msgSequence;
 
-    public Integer getMsgType() {
-        return msgType;
+    public Integer getMsgTypeCode() {
+        return msgTypeCode;
     }
 
-    public void setMsgType(Integer msgType) {
-        this.msgType = msgType;
+    public void setMsgTypeCode(Integer msgTypeCode) {
+        this.msgTypeCode = msgTypeCode;
+    }
+
+    public Type getMsgType() {
+        return Arrays.stream(Type.values())
+                .filter(type -> type.getCode().equals(getMsgTypeCode()))
+                .findFirst()
+                .orElse(null);
     }
 
     public void setType(Type type){
-        setMsgType(type.getCode());
-    }
-    public Integer getMsgSeq() {
-        return msgSeq;
+        setMsgTypeCode(type.getCode());
     }
 
-    public void setMsgSeq(Integer msgSeq) {
-        this.msgSeq = msgSeq;
+    public Integer getMsgSequence() {
+        return msgSequence;
+    }
+
+    public void setMsgSequence(Integer msgSequence) {
+        this.msgSequence = msgSequence;
     }
 
 
